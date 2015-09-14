@@ -1,12 +1,15 @@
 package br.edu.univas.qs.dominio;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -16,12 +19,13 @@ public class InfoAdicional {
 	private Long idInfo;
 	private String descricao;
 	private BigDecimal valor;
-	private Historico Historico;
+	private List<Historico> historicos;
 
 
 	@Id
-	@GeneratedValue
-	@Column(name = "id_infoadicional", nullable = false)
+    @SequenceGenerator(name = "id_infoadicional", sequenceName = "seq_id_infoadicional", allocationSize = 1)
+    @GeneratedValue(generator = "id_infoadicional", strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_infoadicional", nullable = false)
 	public Long getIdInfo() {
 		return idInfo;
 	}
@@ -49,12 +53,12 @@ public class InfoAdicional {
 	}
 
 	@OneToMany
-	public Historico getHistorico() {
-		return Historico;
+	public List<Historico> getHistorico() {
+		return historicos;
 	}
 
-	public void setHistorico(Historico historico) {
-		Historico = historico;
+	public void setHistorico(List<Historico> historicos) {
+		this.historicos = historicos;
 	}
 
 	@Override

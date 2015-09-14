@@ -2,12 +2,15 @@ package br.edu.univas.qs.dominio;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,11 +26,11 @@ public class Voo {
 	private Integer capacidade;
 	private BigDecimal primeiraClasse;
 	private BigDecimal classeEconomica;
-	private Historico Historico;
-
+	private List<Historico> historicos;
 
 	@Id
-	@GeneratedValue
+	@SequenceGenerator(name = "id_voo", sequenceName = "seq_id_voo", allocationSize = 1)
+	@GeneratedValue(generator = "id_voo", strategy = GenerationType.SEQUENCE)
 	@Column(name = "id_voo", nullable = false)
 	public Long getIdVoo() {
 		return idVoo;
@@ -93,12 +96,12 @@ public class Voo {
 	}
 
 	@OneToMany
-	public Historico getHistorico() {
-		return Historico;
+	public List<Historico> getHistoricos() {
+		return historicos;
 	}
 
-	public void setHistorico(Historico historico) {
-		Historico = historico;
+	public void setHistoricos(List<Historico> historicos) {
+		this.historicos = historicos;
 	}
 
 	@Override

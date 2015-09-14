@@ -1,14 +1,13 @@
 package br.edu.univas.qs.dominio;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
@@ -17,12 +16,16 @@ public class Historico {
 
 	private Long idHistorico;
 
-	private List<Voo> voos;
-	private List<InfoAdicional> infos;
+	private Voo voo;
+	private InfoAdicional info;
+
+	
+	
 
 	@Id
-	@GeneratedValue
-	@Column(name = "id_historico", nullable = false)
+    @SequenceGenerator(name = "id_historico", sequenceName = "seq_id_historico", allocationSize = 1)
+    @GeneratedValue(generator = "id_historico", strategy = GenerationType.SEQUENCE)
+    @Column(name = "id_historico", nullable = false)
 	public Long getIdHistorico() {
 		return idHistorico;
 	}
@@ -31,24 +34,24 @@ public class Historico {
 		this.idHistorico = idHistorico;
 	}
 
-	@OneToMany
+	@ManyToOne
 	@JoinColumn(name = "id_voo")
-	public List<Voo> getVoos() {
-		return voos;
+	public Voo getVoo() {
+		return voo;
 	}
 
-	public void setVoos(List<Voo> voos) {
-		this.voos = voos;
+	public void setVoo(Voo voo) {
+		this.voo = voo;
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "id_infoadicional")
-	public List<InfoAdicional> getInfos() {
-		return infos;
+	@JoinColumn(name = "id_info")
+	public InfoAdicional getInfo() {
+		return info;
 	}
 
-	public void setInfos(List<InfoAdicional> infos) {
-		this.infos = infos;
+	public void setInfo(InfoAdicional info) {
+		this.info = info;
 	}
 
 }
