@@ -13,5 +13,4 @@ public class CreateTable {
 		EntityManager manager = JpaUtil.getEntityManager();
 
 	}
-
 }
